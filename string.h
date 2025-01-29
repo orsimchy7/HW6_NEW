@@ -4,11 +4,14 @@
 
 #include "generic-string.h"
 #include "string-array.h"
+#include <iostream>
+using namespace std;
+#include <string> //for using the template "string"
 
 
 class String : public GenericString {
  public :
-	char* strg; //mustnt be const oherwise cant change!! and probably wasnt allowed to use std::string
+	std::string strg; //mustnt be const oherwise cant change!! and probably wasnt allowed to use std::string
  public :
  	String() = default;
  	String(const char* str); //constructor

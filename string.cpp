@@ -3,47 +3,35 @@
 #include <iostream>
 using namespace std;
 #include "string.h"
+#include <cstddef>
 
 //constuctors
-String::String(const char* str) : strg(new char[strlen(str) + 1]) { //inialization list
-	strcpy(strg, str);
-
+String::String(const char* str) : strg(str) { //inialization list
 	cout << "String created" << endl;
 }
 
-String::String(const String& other): strg(new char[strlen(other.strg) + 1]) {
-	strcpy(this->strg, other.strg);
+String::String(const String& other): strg(other.strg) {
+	cout << "String created using copy" << endl;
 }
 //operators
 GenericString& String::operator=(const char *str) {
-	if(!str) return *this;
-	if (this->strg) {
-		delete[] this->strg; //free memory allocated before
-	}
-	if (str) {
-		this->strg = new char[strlen(str) + 1]; //+1 for '/0'
-		strcpy(this->strg, str);
-	}
-	else {
-		this->strg=nullptr;
-	}
+	this->strg = str;
 	return *this; //this is the way of returning refernce to this
 }
 
 bool String::operator==(const GenericString &other) const {
 	const String* otherString = dynamic_cast<const String*>(&other);
-	if (!otherString) return false; //other is not a String - cant compare
-	if (!strcmp(otherString->strg, this->strg)) {
-		return true;
+	if (otherString->strg.compare(this->strg)) {
+		return false;
 	}
-	return false;
+	return true;
 }
 
 bool String::operator==(const char *other) const {
-	if (!strcmp(other, this->strg)) {
-		return true;
+	if (otherString->strg.compare(other)) {
+		return false;
 	}
-	return false;
+	return true;
 }
 
 //other functions
@@ -51,7 +39,7 @@ bool String::operator==(const char *other) const {
 StringArray String::split(const char *delimiters) const {
 	StringArray substrs; //dont use this if arrlen is not member anymore: = new StringArray(); cause dont need constructor
 	char *strgTemp = new char[strlen(this->strg) + 1];
-	strcpy(strgTemp, this->strg);
+	strcpy(strgTemp, this->strg.data);
 	//need to convert const char* strg to (ordinary) char* strg?
 	char* token = strtok(strgTemp, delimiters);
 	while (token != nullptr) {
@@ -65,20 +53,14 @@ StringArray String::split(const char *delimiters) const {
 }
 
 GenericString& String::trim() {
-	//1. 'removing' first white spaces
-	char* ptr = this->strg; //to avoid mem leaking. operator = has original meaning and ptr doesnt need delete
-	while(*(ptr) == ' ' && ptr ) {
-		ptr++;
-	}
-	if (ptr != this->strg) {
-		memmove(this->strg, ptr, strlen(ptr) + 1); //coping non-white-spaces srtg to start
-	}
-	//2. 'removing' last white spaces
-	int lastidx = strlen(this->strg) - 1;
-	while (lastidx >= 0 && this->strg[lastidx] == ' ') {
-		lastidx--;
-	}
-	this->strg[lastidx + 1] = '\0'; //rewrites first white space to be str end - '/0'
+	//1. 'locating' first white spaces
+	std::size_t first = this->strg.find_first_not_of(" ");
+	//2. 'locating' last white spaces
+	std::size_t last = this->strg.find_last_not_of(" ");
+
+
+	this->strg=this->strg.substr(first, (last-first +1)); //assuming there is no entire line of white spaces
+
 	return *this;
 }
 //1. non const ver.
@@ -94,13 +76,11 @@ const String& String::as_string() const {
 
 
 int String::to_integer() const {
-	const char* str = this->strg;
+	const char* str = this->strg.data;
 	return atoi(str);
 }
 
 String::~String() {
-	cout << "String destructed" << endl;
-	delete[] strg;
 	cout << "String destructed" << endl;
 }
 
