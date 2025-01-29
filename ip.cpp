@@ -32,7 +32,7 @@ using namespace std;
 	//~Ip();
 //};
 
-Ip::Ip(const Ip& other) : prefix(other.prefix), rule_info(other.rule_info.strg) {
+Ip::Ip(const Ip& other) : prefix(other.prefix), rule_info(other.rule_info) {
 
     //copy ip_rule_ints
     for(int i =0; i<4; i++){

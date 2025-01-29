@@ -31,13 +31,15 @@ int main(int argc,char **argv){
     String rule_type = rule_info.get_substr(1)->as_string();
 
     if(rule_type==ip_str){
-    	Ip ip_obj(rule.strg);
 
+    	Ip ip_obj(rule.strg.data());
+
+		//cout << "~rule_info" << endl;
     	//using the function parse_input(Generic_field& field)
     	parse_input(ip_obj);
 
     }else{
-    	Port port_obj(rule);
+    	Port port_obj(rule.strg.data());
     	parse_input(port_obj);
 
     }

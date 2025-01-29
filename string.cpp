@@ -28,7 +28,7 @@ bool String::operator==(const GenericString &other) const {
 }
 
 bool String::operator==(const char *other) const {
-	if (otherString->strg.compare(other)) {
+	if (this->strg.compare(other)) {
 		return false;
 	}
 	return true;
@@ -38,8 +38,8 @@ bool String::operator==(const char *other) const {
 
 StringArray String::split(const char *delimiters) const {
 	StringArray substrs; //dont use this if arrlen is not member anymore: = new StringArray(); cause dont need constructor
-	char *strgTemp = new char[strlen(this->strg) + 1];
-	strcpy(strgTemp, this->strg.data);
+	char *strgTemp = new char[strlen(this->strg.data()) + 1];
+	strcpy(strgTemp, this->strg.data());
 	//need to convert const char* strg to (ordinary) char* strg?
 	char* token = strtok(strgTemp, delimiters);
 	while (token != nullptr) {
@@ -55,11 +55,10 @@ StringArray String::split(const char *delimiters) const {
 GenericString& String::trim() {
 	//1. 'locating' first white spaces
 	std::size_t first = this->strg.find_first_not_of(" ");
+	this->strg.erase(0, first);
 	//2. 'locating' last white spaces
 	std::size_t last = this->strg.find_last_not_of(" ");
-
-
-	this->strg=this->strg.substr(first, (last-first +1)); //assuming there is no entire line of white spaces
+	this->strg.erase(last+1);
 
 	return *this;
 }
@@ -76,7 +75,7 @@ const String& String::as_string() const {
 
 
 int String::to_integer() const {
-	const char* str = this->strg.data;
+	const char* str = this->strg.data();
 	return atoi(str);
 }
 

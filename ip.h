@@ -3,6 +3,8 @@
 
 #include "generic-field.h" 
 #include "string.h"
+using namespace std;
+#include <string> //for using the template "string"
 
 
 class Ip : public GenericField {
