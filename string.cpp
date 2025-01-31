@@ -7,11 +7,11 @@ using namespace std;
 
 //constuctors
 String::String(const char* str) : strg(str) { //inialization list
-	cout << "String created" << endl;
+	//cout << "String created" << endl;
 }
 
 String::String(const String& other): strg(other.strg) {
-	cout << "String created using copy" << endl;
+	//cout << "String created using copy" << endl;
 }
 //operators
 GenericString& String::operator=(const char *str) {
@@ -80,11 +80,11 @@ int String::to_integer() const {
 }
 
 String::~String() {
-	cout << "String destructed" << endl;
+	//cout << "String destructed" << endl;
 }
 
 void String::printMethod() {
-	cout << "strg member is: "<< strg << endl;
+	//cout << "strg member is: "<< strg << endl;
 }
 
 
@@ -92,7 +92,7 @@ void String::printMethod() {
 //check in shat kabala
 GenericString* make_string(const char *str) {
 	GenericString *a = new String(str); //as requested, allocate memory
-	cout << "String was made" << endl;
+	//cout << "String was made" << endl;
 	return a;
 }
 

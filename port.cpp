@@ -2,31 +2,26 @@
 #include "generic-field.h"
 #include "generic-string.h"
 #include "string.h"
+#include "port.h"
+#include <cstdbool>
 #include <cstring>
 #include <iostream>
 using namespace std;
 //<iostream> provides us access to cout cin cerr
 
+Port::Port(const Port& other): range_start(other.range_start),
+                               range_end(other.range_end),
+                               rule_info(other.rule_info){
 
-class Port : public GenericField {
-public:
-    int range_start = 0;
-    int range_end = 0;
-    String rule_info;
+}
 
-    Port(const String& rule);
-    ~Port();
 
-    bool match(const GenericString &packet) const;
-};
-
-Port::Port(const String& rule){
+Port::Port(const char* rule = "") : range_start(0), range_end(0),rule_info(rule){
     //parsing the rule string.
-    String local_rule = rule;
-    local_rule.trim();
+    rule_info.trim();
 
     //separate the field name and value.
-    StringArray as1 = local_rule.split("=");
+    StringArray as1 = rule_info.split("=");
     
     StringArray range_values = as1.get_substr(1)->split("-");
 

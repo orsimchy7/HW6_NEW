@@ -32,19 +32,17 @@ int main(int argc,char **argv){
 
     if(rule_type==ip_str){
 
-    	Ip ip_obj(rule.strg.data());
+    	Ip ip_obj(rule.strg.c_str());
 
 		//cout << "~rule_info" << endl;
     	//using the function parse_input(Generic_field& field)
     	parse_input(ip_obj);
 
     }else{
-    	Port port_obj(rule.strg.data());
+    	Port port_obj(rule.strg.c_str());
     	parse_input(port_obj);
 
     }
-
-
 
 
 	return 0;

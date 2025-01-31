@@ -21,11 +21,11 @@ void StringArray::addSubStr(char *subStr) {
 
 StringArray::~StringArray() {
 	for (GenericString* str : subStrVec) {
-		cout << "delete str loop" << endl;
+		//cout << "delete str loop" << endl;
         delete str; //deleting each sub str
     }
     subStrVec.clear(); // vector deleting
-    cout << "~StringArray" << endl;
+    //cout << "~StringArray" << endl;
     
 }
 

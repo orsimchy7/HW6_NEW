@@ -40,7 +40,7 @@ Ip::Ip(const Ip& other) : prefix(other.prefix), rule_info(other.rule_info) {
     }
 
 
-    cout << "COPY Ip() created" << endl;
+    //cout << "COPY Ip() created" << endl;
 }
 
 Ip::Ip(const char* rule = ""): prefix(0),rule_info(rule){
@@ -78,14 +78,14 @@ Ip::Ip(const char* rule = ""): prefix(0),rule_info(rule){
     //finding if the rule is about src or dst
     rule_info = as1.get_substr(0)->trim().as_string();
 
-    cout << "Ip() created" << endl;
+    //cout << "Ip() created" << endl;
 
    	//delete local_rule;
 	//cout<< "constructor IP" << endl;
 }
 
 Ip::~Ip(){
-	cout << "~Ip()" << endl;
+	//cout << "~Ip()" << endl;
 }
 
 bool Ip::match(const GenericString& packet) const{
@@ -103,7 +103,7 @@ bool Ip::match(const GenericString& packet) const{
 
 	unsigned int highest_ip = lowest_ip | (~mask);
 
-	cout << "match()"; 
+	//cout << "match()"; 
 
 	return (ip >=lowest_ip) && (ip<=highest_ip);
 

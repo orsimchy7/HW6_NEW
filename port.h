@@ -3,17 +3,20 @@
 
 #include "generic-field.h"
 #include "string.h"
+using namespace std;
+#include <string> //for using the template "string"
 
 class Port : public GenericField {
 public:
-    int range_start = 0;
-    int range_end = 0;
+    int range_start;
+    int range_end;
     String rule_info;
 
-    Port(const String& rule);
+	Port(const Port& other);
+    Port(const char* rule);
     ~Port();
 
-    bool match(const GenericString &packet) const override;
+    bool match(const GenericString &packet) const ;
 };
 
 #endif
