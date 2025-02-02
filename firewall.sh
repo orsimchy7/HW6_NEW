@@ -28,5 +28,7 @@ while IFS= read -r Rule; do #bash's IFS interepts lines as rules
 		validPackets+="$optionalPkts"$'\n'
 	fi
 done <<< "$complexRules"
-
+#deleting first empty line
+validPackets=$(echo -e "$validPackets" | grep -v '^$')
+#print legal pkts to stdout
 echo -e "$validPackets" | sort | uniq
